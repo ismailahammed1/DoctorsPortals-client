@@ -4,12 +4,10 @@ import React, { useState } from "react";
 // @ts-ignore
 import chair from "../../../assets/images/chair.png";
 import { DayPicker } from "react-day-picker";
-import { format } from "date-fns";
 import banner1 from "../../../assets/images/banner.jpeg";
 
-const AppointmentBanner = () => {
-  const [selected, setSelected] = useState(new Date());
-
+// eslint-disable-next-line react/prop-types
+const AppointmentBanner = ({ selectDate, setSelectDate }) => {
   return (
     <header className=" " style={{ backgroundImage: `url(${banner1})` }}>
       <div className="hero ">
@@ -22,10 +20,9 @@ const AppointmentBanner = () => {
           <div className="mr-6">
             <DayPicker
               mode="selected"
-              selected={selected}
-              onSelect={setSelected}
+              selected={selectDate}
+              onSelect={setSelectDate}
             />
-            <p>You have selected date:{format(selected, "PP")}</p>
           </div>
         </div>
       </div>

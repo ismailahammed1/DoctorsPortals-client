@@ -1,11 +1,17 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useState } from "react";
 import AppointmentBanner from "../AppointmentBanner/AppointmentBanner";
+import AvailableAppointments from "../AvailableAppointments/AvailableAppointments";
 
 const Appointment = () => {
+  const [selectDate, setSelectDate] = useState(new Date());
   return (
     <div>
-      <AppointmentBanner></AppointmentBanner>
+      <AppointmentBanner
+        selectDate={selectDate}
+        setSelectDate={setSelectDate}
+      ></AppointmentBanner>
+      <AvailableAppointments selectDate={selectDate}></AvailableAppointments>
     </div>
   );
 };
