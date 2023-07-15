@@ -9,13 +9,13 @@ import banner1 from "../../../assets/images/banner.jpeg";
 // eslint-disable-next-line react/prop-types
 const AppointmentBanner = ({ selectDate, setSelectDate }) => {
   return (
-    <header className=" " style={{ backgroundImage: `url(${banner1})` }}>
+    <header className="  " style={{ backgroundImage: `url(${banner1})` }}>
       <div className="hero ">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img
             src={chair}
             alt="dentist chair"
-            className="max-w-sm rounded-lg shadow-2xl"
+            className="rounded-lg lg:w-1/2 shadow-2xl"
           />
           <div className="mr-6">
             <DayPicker

@@ -1,8 +1,17 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Contexts/AuthProvider";
 
 const Navbar = () => {
+  // eslint-disable-next-line no-unused-vars
+  const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
   const menuItem = (
     <React.Fragment>
       <li>
@@ -20,13 +29,20 @@ const Navbar = () => {
       <li>
         <Link to="/contact">Contact</Link>
       </li>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
+      {user?.uid ? (
+        <li>
+          <button onClick={handleLogout}>Sign Out</button>
+        </li>
+      ) : (
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+      )}
     </React.Fragment>
   );
+
   return (
-    <div className="navbar glass bg-gradient-to-r from-blue-950 to-primary text-white flex justify-between ">
+    <div className="navbar glass bg-gradient-to-r from-blue-950 to-primary  flex justify-between ">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">

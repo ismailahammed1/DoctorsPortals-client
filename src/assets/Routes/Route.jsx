@@ -5,8 +5,8 @@ import MainLayout from "../../Layout/MainLayout";
 import React from "react";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
-import SignUp from "../../Pages/SignUp/SignUp";
 import Appointment from "../../Pages/Appointment/Appointment/Appointment";
+import SignUp from "../../Pages/Signup/SignUp";
 
 // @ts-ignore
 const router = createBrowserRouter([
