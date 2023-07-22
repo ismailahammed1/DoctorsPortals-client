@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
   const {
@@ -11,15 +12,30 @@ const SignUp = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUser } = useContext(AuthContext);
+  const { signUpError, setSignUpError } = useState("");
 
   const handleLogin = (data) => {
+    console.log(data);
+    // setSignUpError("");
     createUser(data.email, data.password)
       .then((result) => {
-        const user = result;
+        const user = result.user;
         console.log(user);
+        toast("user create success fully");
+        const userInfo = {
+          displayName: data.name,
+        };
+        updateUser(userInfo)
+          .then(() => {})
+          .catch((error) => {
+            console.log(error);
+          });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setSignUpError(error.message);
+      });
   };
 
   return (
@@ -96,9 +112,10 @@ const SignUp = () => {
               placeholder="Type here"
               className="bg-slate-500 input-primary w-full btn btn-accent"
             />
+            {setSignUpError && <p className="text-red-900">{signUpError}</p>}
           </div>
           <label className="label hover:underline">
-            <Link to="/login" className="text-black">
+            <Link to="/login" className="text-secondary">
               Already have an Account
             </Link>
           </label>

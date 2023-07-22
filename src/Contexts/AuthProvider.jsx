@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.config";
 
@@ -17,15 +18,24 @@ const auth = getAuth(app);
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState();
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const signIn = (email, password) => {
+    setLoading(true);
+
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const updateUser = (userinfo) => {
+    return updateProfile(user, userinfo);
+  };
+
   const logout = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
@@ -33,6 +43,7 @@ const AuthProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log("observe");
       setUser(currentUser);
+      setLoading(false);
     });
     return () => unSubscribe();
   }, []);
@@ -41,7 +52,9 @@ const AuthProvider = ({ children }) => {
     createUser,
     signIn,
     logout,
+    updateUser,
     user,
+    loading,
   };
 
   return (
